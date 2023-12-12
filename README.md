@@ -35,6 +35,9 @@ $ docker-compose up
 ## Running the app
 
 ```bash
+#add .env file
+$ copy file .env.example to .env
+
 # run migrations
 $ docker exec reservations_app_dev npx prisma migrate dev --name init
 
