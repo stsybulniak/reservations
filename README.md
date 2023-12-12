@@ -29,17 +29,17 @@
 ## Installation
 
 ```bash
-$ docker-compose up
-```
-
-## Running the app
-
-```bash
 #add .env file
 $ copy file .env.example to .env
 
+$ docker-compose up
+```
+
+## Running migrations
+
+```bash
 # run migrations
-$ docker exec reservations_app_dev npx prisma migrate dev --name init
+$ docker exec reservations_app_dev npx prisma migrate dev
 
 # run seed
 $ docker exec reservations_app_dev npx prisma db seed
