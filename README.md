@@ -29,20 +29,17 @@
 ## Installation
 
 ```bash
-$ npm install
+$ docker-compose up
 ```
 
 ## Running the app
 
 ```bash
-# development
-$ npm run start
+# run migrations
+$ docker exec reservations_app_dev npx prisma migrate dev --name init
 
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+# run seed
+$ docker exec reservations_app_dev npx prisma db seed
 ```
 
 ## Test
