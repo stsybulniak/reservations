@@ -15,4 +15,25 @@ export class ReservationsRepository {
       include: { amenity: { select: { name: true } } },
     });
   }
+
+  async getReservationsByUser(userId: number) {
+    const reservaitons = await this.prisma.reservation.findMany({
+      where: { userId },
+      orderBy: [{ date: 'asc' }, { startTime: 'asc' }],
+      include: { amenity: { select: { name: true } } },
+    });
+
+    const groupByDay = reservaitons.reduce<Map<bigint, typeof reservaitons>>(
+      (res, reservation) => {
+        res.has(reservation.date)
+          ? res.get(reservation.date).push(reservation)
+          : res.set(reservation.date, [reservation]);
+
+        return res;
+      },
+      new Map(),
+    );
+
+    return groupByDay;
+  }
 }

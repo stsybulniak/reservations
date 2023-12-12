@@ -22,4 +22,10 @@ export class ReservationsController {
       timestamp,
     );
   }
+
+  @Get('reservations/user/:userId')
+  @UseInterceptors(ClassSerializerInterceptor)
+  getReservationsByUser(@Param('userId') userId: number) {
+    return this.reservationsService.getReservationsByUser(userId);
+  }
 }
