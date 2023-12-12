@@ -24,4 +24,6 @@ model Reservation {
   date      BigInt
   amenityId Int
   amenity   Amenity @relation(fields: [amenityId], references: [id])
+
+  @@index([startTime, date])
 }
