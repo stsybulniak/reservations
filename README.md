@@ -26,36 +26,38 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
+## Installation dev environment
 
 ```bash
-#add .env file
+#add .env file with NODE_ENV="dev"
 $ copy file .env.example to .env
+# run on local machine
+$ npm i
+$ npx prisma generate
 
-$ docker-compose up
-```
+# run docker-compose commands
+$ docker-compose -f docker-compose.yaml -f docker-compose-dev.yaml build
+$ docker-compose -f docker-compose.yaml -f docker-compose-dev.yaml up
 
-## Running migrations
-
-```bash
 # run migrations
-$ docker exec reservations_app_dev npx prisma migrate dev
+$ docker exec -it reservations_app_dev npx prisma migrate dev
 
 # run seed
-$ docker exec reservations_app_dev npx prisma db seed
+$ docker exec -it reservations_app_dev npx prisma db seed
 ```
 
-## Test
+## Installation production environment
 
 ```bash
-# unit tests
-$ npm run test
+#add .env file with NODE_ENV="production"
+$ copy file .env.example to .env
 
-# e2e tests
-$ npm run test:e2e
+# run docker-compose commands
+$ docker-compose build
+$ docker-compose up
 
-# test coverage
-$ npm run test:cov
+# run migrations
+$ docker exec -it reservations_app_production npx prisma migrate dev
 ```
 
 ## Support
