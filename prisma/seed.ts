@@ -3,6 +3,7 @@ import { Options, parse } from 'csv-parse';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 import { finished } from 'node:stream/promises';
+import * as bcrypt from 'bcrypt';
 
 interface IReservationRecord {
   id: number;
@@ -75,6 +76,21 @@ async function main() {
     data: amenities,
     skipDuplicates: true,
   });
+
+  const userIds = Array.from({ length: 100 }).map((_v, ind) => ind + 1);
+
+  const users = await Promise.all(
+    userIds.map(async (userId) => {
+      const hashedPassword = await bcrypt.hash('123456', 10);
+
+      return {
+        username: `user-${userId}`,
+        password: hashedPassword,
+      };
+    }),
+  );
+
+  await prisma.user.createMany({ data: users });
 
   await prisma.reservation.createMany({
     data: reservations,
